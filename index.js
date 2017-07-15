@@ -17,23 +17,43 @@ app.get('/items', function (req, res) {
 
 app.get('/api/items', function (req, res) {
   request('https://api.mercadolibre.com/sites/MLA/search?q=' + req.query.q, function (error, response, body) {
+
+    var body = JSON.parse(body);
+    var misResultados = {};
+
+    //AUTOR
+    misResultados.author = {name: 'Rita', lastname: 'Gonzalez Hesaynes'};
+
+    //CATEGORIAS
+    misResultados.categories = [];
+
+    if (body.filters.length == 0) {
+    	misResultados.categories.push(body.available_filters[0].values[0].name);
+    } else {
+    	var cat = body.filters[0].values[0].path_from_root;
+    	for (var i = 0; i < cat.length; i++) {
+    		misResultados.categories.push(cat[i].name);
+    	}
+    }
+
+    //ITEMS
+    
+    /*
+    for (var j = 0; j < body.results.length; j++) {
+    	var resultados = body.results[j];
+    	
+    	if ()
+
+    };
+    */
+    console.log(misResultados);
+
     res.send(body);
   });
 });
 
 
-/*
-app.get('/api/items', function(req, res) { 
-	https.get('https://api.mercadolibre.com/sites/MLA/search' + req.params.QUEVAACA, function(response) {
-		var body='';
-		response.on('data', function(d) {
-			body += d;
-		});
-		response.on('end', function() {
-			body = JSON.parse(body); //convierte la data string en json y la consolea en el back
-			 
-			for (var i=0; i < body.data.length; i++) {
-				/* var persona = body.data[i];
+/* var persona = body.data[i];
 				persona.full_name = persona.first_name + ' ' + persona.last_name;
 				body.data[i] = persona; 
 
@@ -43,13 +63,6 @@ app.get('/api/items', function(req, res) {
 				personaNueva.id = persona.id;
 				personaNueva.full_name = persona.first_name + ' ' + persona.last_name;
 				body.data[i] = personaNueva;
-
-			}
-			
-			res.send(body);
-		}); 
-	});
-});
 */
 
 app.listen(3000, function () {

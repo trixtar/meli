@@ -1,5 +1,6 @@
 $(document).ready(function () {
-  $.get("/api/items?q=" + QueryParameters.getUrlParameter("q"), function (res) {
+  $.get("/api/items?q=" + QueryParameters.getUrlParameter("search"), function (res) {
+  	console.log(res);
   	$("#ml-response").html(res);
   });
 });
