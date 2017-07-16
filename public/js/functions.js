@@ -1,4 +1,4 @@
-QueryParameters = {
+myFunctions = {
   getUrlParameter: function (name) {
       name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
       var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');

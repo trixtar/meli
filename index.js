@@ -1,6 +1,5 @@
 var express = require('express');
 var request = require('request');
-//var https = require('https');
 var app = express();
 
 app.use('/lib', express.static(__dirname + '/node_modules'));
@@ -13,6 +12,52 @@ app.get('/', function (req, res) {
 
 app.get('/items', function (req, res) {
   res.sendFile(__dirname + '/public/views/busqueda.html');
+});
+
+app.get('/items/:id', function (req, res) {
+  res.sendFile(__dirname + '/public/views/detalle.html');
+});
+
+app.get('/api/items/:id', function (req, res) {
+  request('https://api.mercadolibre.com/items/​' + req.params.id, function (error, response, body) {
+  	var body = JSON.parse(body);
+  	
+  	var miItem = {};
+
+  	console.log(body);
+
+  	//AUTOR
+    miItem.author = {name: 'Rita', lastname: 'Gonzalez Hesaynes'};
+
+    //ITEM
+    miItem.item = {};
+    miItem.item.id = body.id;
+    miItem.item.title = body.title;
+    miItem.price = {};
+   	miItem.price.currency = body.currency_id;
+    if (Number.isInteger(body.price)) {
+    	miItem.price.amount = body.price;
+    	miItem.price.decimals = 00;
+    } else {
+    	miItem.price.amount = Math.floor(body.price);
+    	miItem.price.decimals = parseInt(body.price.toString().split('.')[1]);
+    }
+    miItem.picture = body.secure_thumbnail;
+    miItem.condition = body.condition;
+    miItem.free_shipping = body.shipping.free_shipping;
+    miItem.sold_quantity = body.sold_quantity;
+    miItem.description = 'FALTA';
+	
+
+  	res.send(body);
+  });
+/*
+		request('https://api.mercadolibre.com/items/​' + req.params.id + '/description', function (error, response, body) {
+  		var description = JSON.parse(body);
+
+  		res.send(description);
+  		});
+ */
 });
 
 app.get('/api/items', function (req, res) {
@@ -37,33 +82,32 @@ app.get('/api/items', function (req, res) {
     }
 
     //ITEMS
-    
-    /*
+    misResultados.items = [];
+
     for (var j = 0; j < body.results.length; j++) {
-    	var resultados = body.results[j];
+    	var temp = {};
+
+    	temp.id = body.results[j].id;
+    	temp.title = body.results[j].title;
+    	temp.price = {};
+    	temp.price.currency = body.results[j].currency_id;
+    	if (Number.isInteger(body.results[j].price)) {
+    		temp.price.amount = body.results[j].price;
+    		temp.price.decimals = 00;
+    	} else {
+    		temp.price.amount = Math.floor(body.results[j].price);
+    		temp.price.decimals = parseInt(body.results[j].price.toString().split('.')[1]);
+    	}
+    	temp.picture = body.results[j].thumbnail;
+    	temp.condition = body.results[j].condition;
+    	temp.free_shipping = body.results[j].shipping.free_shipping;
     	
-    	if ()
-
+    	misResultados.items.push(temp);
     };
-    */
-    console.log(misResultados);
 
-    res.send(body);
+    res.send(misResultados);
   });
 });
-
-
-/* var persona = body.data[i];
-				persona.full_name = persona.first_name + ' ' + persona.last_name;
-				body.data[i] = persona; 
-
-				var persona = body.data[i];
-				var personaNueva = {};
-				personaNueva.avatar = persona.avatar;
-				personaNueva.id = persona.id;
-				personaNueva.full_name = persona.first_name + ' ' + persona.last_name;
-				body.data[i] = personaNueva;
-*/
 
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!');

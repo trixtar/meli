@@ -1,22 +1,16 @@
 $(document).ready(function () {
-  $.get("/api/items?q=" + QueryParameters.getUrlParameter("search"), function (res) {
+  $.get("/api/items?q=" + myFunctions.getUrlParameter("search"), function (res) {
   	console.log(res);
-  	$("#ml-response").html(res);
+  	
+  	for (var i = 0; i < 4; i++) {
+  	var resultado = '';
+  	resultado += '<div class="resultado">';
+  	resultado += '<a href="/items/' + res.items[i].id + '"><img src="' + res.items[i].picture +'"></a>';
+  	resultado += res.items[i].title;
+  	resultado += '</div'>
+
+  	$("#ml-response").append(resultado);
+  	}
+	
   });
 });
-
-
-/*
-$.get("/api/items/" + parametros.search, function(data) {
-  console.log(data);
-  	var usuariounico = "";
-
-    usuariounico += '<div class="usuariounico">';
-    usuariounico += '<h3>' + data.data.full_name + '</h3>'; //el 1er data es el parámetro de la fc, el 2do esta en el json
-    usuariounico += '<img src="' + data.data.avatar + '"/></a>';
-    usuariounico += '</div>'; 
-
-    $('#detalles').append(usuariounico);
-    $('#cargando').hide();
-});
-*/

@@ -60,3 +60,7 @@ html {
             background-image: url("/public/images/ic_search.png");
             background-repeat: no-repeat;
             background-position: center; }
+
+.resultado {
+  border: 1px solid black;
+  margin: 10px 0; }
