@@ -1,17 +1,25 @@
 @font-face {
-    font-family: Nimbus Sans;
-    src: url(/public/fonts/nimbussansl-regular.otf);
+    font-family: 'Nimbus Sans';
+    src: url('/public/fonts/nimbussansl-regular.otf');
 }
 
-@font-face {
-    font-family: Proxima Nova;
-    src: url(/public/fonts/proximanova-regular.otf);
-}
 
 
 $yellow: #ffe600;
 $darkbg: #333;
+$mediumbg: #666;
 $lightbg: #999;
 $whitegrey: #eee;
 
 $input-h: 38px;
+$normal: 16px;
+$double: $normal * 2;
+$thumb: 180px;
+
+$fonts: Helvetica, Arial, sans-serif;
+
+%results-item-databox {
+	padding: 15px $normal;
+	display: inline-block;
+	font-family: $fonts;
+}

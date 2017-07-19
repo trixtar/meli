@@ -10,55 +10,49 @@ app.get('/', function (req, res) {
   console.log(req.query);
 });
 
-app.get('/items', function (req, res) {
-  res.sendFile(__dirname + '/public/views/busqueda.html');
-});
-
 app.get('/items/:id', function (req, res) {
   res.sendFile(__dirname + '/public/views/detalle.html');
 });
 
-app.get('/api/items/:id', function (req, res) {
-  request('https://api.mercadolibre.com/items/​' + req.params.id, function (error, response, body) {
-  	var body = JSON.parse(body);
-  	
-  	var miItem = {};
-
-  	console.log(body);
-
-  	//AUTOR
-    miItem.author = {name: 'Rita', lastname: 'Gonzalez Hesaynes'};
-
-    //ITEM
-    miItem.item = {};
-    miItem.item.id = body.id;
-    miItem.item.title = body.title;
-    miItem.price = {};
-   	miItem.price.currency = body.currency_id;
-    if (Number.isInteger(body.price)) {
-    	miItem.price.amount = body.price;
-    	miItem.price.decimals = 00;
-    } else {
-    	miItem.price.amount = Math.floor(body.price);
-    	miItem.price.decimals = parseInt(body.price.toString().split('.')[1]);
-    }
-    miItem.picture = body.secure_thumbnail;
-    miItem.condition = body.condition;
-    miItem.free_shipping = body.shipping.free_shipping;
-    miItem.sold_quantity = body.sold_quantity;
-    miItem.description = 'FALTA';
-	
-
-  	res.send(body);
-  });
-/*
-		request('https://api.mercadolibre.com/items/​' + req.params.id + '/description', function (error, response, body) {
-  		var description = JSON.parse(body);
-
-  		res.send(description);
-  		});
- */
+app.get('/items', function (req, res) {
+  res.sendFile(__dirname + '/public/views/busqueda.html');
 });
+
+app.get('/api/items/:id', function (req, res) {
+	request('https://api.mercadolibre.com/items/​' + req.params.id, function (error, response, body) {
+	  	var itemBasic = JSON.parse(body);
+
+	  	request('https://api.mercadolibre.com/items/' + req.params.id + '/description', function (error, response, body) {
+			var itemDescription = JSON.parse(body);
+			var miItem = {};
+
+			//AUTOR
+		    miItem.author = {name: 'Rita', lastname: 'Gonzalez Hesaynes'};
+
+		    //ITEM
+		    miItem.item = {};
+		    miItem.item.id = itemBasic.id;
+		    miItem.item.title = itemBasic.title;
+		    miItem.item.price = {};
+		   	miItem.item.price.currency = itemBasic.currency_id;
+		    if (Number.isInteger(itemBasic.price)) {
+		    	miItem.item.price.amount = itemBasic.price;
+		    	miItem.item.price.decimals = 0;
+		    } else {
+		    	miItem.item.price.amount = Math.floor(itemBasic.price);
+		    	miItem.item.price.decimals = parseInt(itemBasic.price.toString().split('.')[1]);
+		    }
+		    miItem.item.picture = itemBasic.secure_thumbnail;
+		    miItem.item.condition = itemBasic.condition;
+		    miItem.item.free_shipping = itemBasic.shipping.free_shipping;
+		    miItem.item.sold_quantity = itemBasic.sold_quantity;
+		    miItem.item.description = itemDescription.plain_text; //LUEGO VER CAMBIAR A itemDescription.text;
+			
+			res.send(miItem);
+		});
+	});
+});
+
 
 app.get('/api/items', function (req, res) {
   request('https://api.mercadolibre.com/sites/MLA/search?q=' + req.query.q, function (error, response, body) {
@@ -101,6 +95,7 @@ app.get('/api/items', function (req, res) {
     	temp.picture = body.results[j].thumbnail;
     	temp.condition = body.results[j].condition;
     	temp.free_shipping = body.results[j].shipping.free_shipping;
+    	temp.location = body.results[j].address.state_name;  //Agrego key para poder insertar la provincia en los resultados
     	
     	misResultados.items.push(temp);
     };

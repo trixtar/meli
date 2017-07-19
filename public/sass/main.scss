@@ -17,8 +17,8 @@ html {
 	font-size: 16px;
 		// SEARCH BAR
 		.searchbar-container {
-			width: 100vw;
-			height: 5.5rem;
+			width: 100%;
+			height: 55px;
 			padding: 0 1rem;
 			position: fixed;
 			display: flex;
@@ -46,12 +46,12 @@ html {
 						width: 100%;
 						height: $input-h;
 						margin-left: 2.5rem;
-						padding: 1.5rem;
+						padding: 0 1.5rem;
 						border: none;
 						border-radius: 2px 0 0 2px;
 						display: inline;
 						font-size: 1.8rem;
-						font-family: Arial, Helvetica, sans-serif;
+						font-family: $fonts;
 					}
 					.search-btn {
 						width: 40px;
@@ -72,7 +72,107 @@ html {
 }
 
 
+.main-container {
+	//width: 100vw;
+	padding: 55px 1rem 0;
+	.main-content {
+		max-width: 1020px;
+		width: 100%;
+		margin: 0 auto;
+	}
+}
+
+// SEARCH BREADCRUMB
+
+.search-breadcrumb {
+	margin: 0;
+	padding: $normal 0;
+	font-size: 1.4rem;
+	font-family: $fonts;
+	color: $lightbg;
+	.search-path {
+		i {
+			padding: 0 0.8rem;
+		}
+		li {
+			display: inline;
+			list-style-type: none;
+			
+		&:last-child {
+			font-weight: bold;
+		}
+		}
+	}
+}
+
+
+// SEARCH RESULTS
+
+.search-results {
+	width: 100%;
+	padding: 0 $normal;
+	border-radius: 4px;
+	background-color: white;
+	.result {
+		width: 100%;
+		padding: $normal 0;
+		display: flex;
+		border-bottom: $whitegrey solid 1px;
+		&:last-child {
+			border-bottom: none;
+		}
+		figure {
+			display: inline-block;
+			.item-thumb {
+			width: $thumb;
+			height: $thumb;
+			border-radius: 4px;
+			}
+		}
+		.item-basicdata {
+			width: 40%;
+			overflow: hidden;
+			@extend %results-item-databox;
+			.item-price {
+				.price {
+					font-size: 2.4rem;
+					sup {
+						padding: 0.2rem;
+						font-size: 1.4rem;
+					}
+				}
+				.free-shipping {
+					width: 18px;
+					height: 18px;
+					margin-left: 1rem;
+					display: inline-block;
+					background-image: url('/public/images/ic_shipping.png');
+					background-repeat: no-repeat;
+				}
+			}
+			.item-title {
+				padding-top: $double;
+				.title {
+					font-size: 1.8rem;
+					a {
+						color: #000;
+						text-decoration: none;
+					}
+				}
+			}
+		}
+		.item-place {
+			@extend %results-item-databox;
+			margin-left: 20%;
+			.place {
+				font-size: 1.2rem;
+				vertical-align: -50%;
+			}
+		}
+	}
+}
+
+
 .resultado {
 	border: 1px solid black;
-	margin: 10px 0;
 }
