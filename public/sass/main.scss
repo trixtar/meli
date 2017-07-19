@@ -123,14 +123,18 @@ html {
 		}
 		figure {
 			display: inline-block;
-			.item-thumb {
-			width: $thumb;
 			height: $thumb;
-			border-radius: 4px;
+			a {
+				height: 100%;
+				.item-thumb {
+				width: $thumb;
+				height: $thumb;
+				border-radius: 4px;
+				}
 			}
 		}
 		.item-basicdata {
-			width: 40%;
+			width: 45%;
 			overflow: hidden;
 			@extend %results-item-databox;
 			.item-price {
@@ -163,10 +167,10 @@ html {
 		}
 		.item-place {
 			@extend %results-item-databox;
-			margin-left: 20%;
+			margin-left: 18%;
 			.place {
 				font-size: 1.2rem;
-				vertical-align: -50%;
+				vertical-align: -30%;
 			}
 		}
 	}

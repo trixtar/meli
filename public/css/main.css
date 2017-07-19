@@ -96,13 +96,16 @@ html {
     .search-results .result:last-child {
       border-bottom: none; }
     .search-results .result figure {
-      display: inline-block; }
-      .search-results .result figure .item-thumb {
-        width: 180px;
-        height: 180px;
-        border-radius: 4px; }
+      display: inline-block;
+      height: 180px; }
+      .search-results .result figure a {
+        height: 100%; }
+        .search-results .result figure a .item-thumb {
+          width: 180px;
+          height: 180px;
+          border-radius: 4px; }
     .search-results .result .item-basicdata {
-      width: 40%;
+      width: 45%;
       overflow: hidden; }
       .search-results .result .item-basicdata .item-price .price {
         font-size: 2.4rem; }
@@ -124,10 +127,10 @@ html {
             color: #000;
             text-decoration: none; }
     .search-results .result .item-place {
-      margin-left: 20%; }
+      margin-left: 18%; }
       .search-results .result .item-place .place {
         font-size: 1.2rem;
-        vertical-align: -50%; }
+        vertical-align: -30%; }
 
 .resultado {
   border: 1px solid black; }
