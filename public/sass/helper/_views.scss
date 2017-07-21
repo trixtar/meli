@@ -236,9 +236,9 @@ html {
 }
 @media screen and (max-width: $breakpoint) and (min-width: $breakpoint-sm){
     .listing-left {
-    	width: 75%;
+    	width: 70%;
     	margin-right: 0;
-    	padding-right: $double;
+    	padding-right: $normal;
     }
 }
 @media screen and (max-width: $breakpoint-sm){
