@@ -13,7 +13,9 @@ html {
 	font-size: 62.5%;
 	body {
 	background-color: $whitegrey;
+	font-family: $fonts;
 	font-size: 16px;
+	color: $darkbg;
 		// SEARCH BAR
 		.searchbar-container {
 			width: 100%;
@@ -79,7 +81,7 @@ html {
 		width: 100%;
 		margin: 0 auto;
 		.bottom {
-			
+			height: 50px;
 		}
 	}
 }
@@ -190,7 +192,6 @@ html {
 		display: flex;
 		flex-wrap: wrap;
 		font-family: $fonts;
-		color: $darkbg;
 	}
 }
 
@@ -244,7 +245,7 @@ html {
 		sup {
 			padding: 0.2rem;
 			font-size: 2.6rem;
-			margin-bottom: 1.4rem;
+			margin-bottom: 1.5rem;
 		}
 		.free-shipping-big {
 			width: 36px;

@@ -41,8 +41,10 @@ $(document).ready(function () {
 
     $('#description-full').text(res.item.description);
 
-    /* Lo pongo en modo texto porque la descripción en formato HTML
+    /* A la descripción pongo en modo texto porque la descripción en formato HTML
     no parece estar contemplada en las especificaciones de diseño. */
+
+    $('#bottom').addClass('.bottom');
 
     });
 
