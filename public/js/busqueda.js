@@ -1,6 +1,8 @@
 $(document).ready(function () {
+
+	// llamo a la API con la keyword de búsqueda que extraigo mediante la función getUrlParameter
+
   $.get("/api/items?q=" + myFunctions.getUrlParameter("search"), function (res) {
-  	console.log(res);
 
   	// BREADCRUMB DE CATEGORIAS
   	
@@ -17,11 +19,15 @@ $(document).ready(function () {
   	$('#breadcrumb-path').html(categories);
 
   	// MAIN SECTION: RESULTADOS DE BUSQUEDA
+
+  	// el loop for repite la operación para los primeros 4 items detallados en el JSON
   	
   	for (var j = 0; j < 4; j++) {
   		var currency = myFunctions.currencySymbol(res.items[j].price.currency);
   		var price = res.items[j].price.amount.toLocaleString();
 	  	var resultado = '';
+
+	  	// acá construyo el div de cada resultado de la búsqueda y lo appendeo.
 
 	  	resultado += '<article class="result">';
 	  	resultado += '<figure class="item-image"><a href="/items/' + res.items[j].id + '"><img class="item-thumb" src="' + res.items[j].picture +'"></a></figure>';
@@ -34,6 +40,8 @@ $(document).ready(function () {
 
 	  	$('#search-results').append(resultado);
   	}
+
+  	// activo el div bottom
 
   	$('#bottom').addClass('.bottom');
 	

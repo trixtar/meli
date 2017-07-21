@@ -153,7 +153,8 @@ html {
 
 .listing-left {
   max-width: 680px;
-  width: 80%; }
+  width: 80%;
+  margin-right: 32px; }
   .listing-left .listing-image {
     width: 100%; }
     .listing-left .listing-image .listing-img {
@@ -171,7 +172,9 @@ html {
 
 @media screen and (max-width: 1100px) and (min-width: 861px) {
   .listing-left {
-    width: 75%; } }
+    width: 75%;
+    margin-right: 0;
+    padding-right: 32px; } }
 
 @media screen and (max-width: 861px) {
   .listing-left {

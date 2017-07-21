@@ -2,6 +2,8 @@ var express = require('express');
 var request = require('request');
 var app = express();
 
+// hago los paths que voy a usar para uso interno y externo, y especifico las vistas 
+
 app.use('/lib', express.static(__dirname + '/node_modules'));
 app.use('/public', express.static(__dirname + '/public'));
 
@@ -18,6 +20,8 @@ app.get('/items', function (req, res) {
   res.sendFile(__dirname + '/public/views/busqueda.html');
 });
 
+// en la última llamada a la api nesteo 3 requests para obtener los datos del item, la descripción y la categoría
+
 app.get('/api/items/:id', function (req, res) {
 	request('https://api.mercadolibre.com/items/​' + req.params.id, function (error, response, body) {
 	  	var itemBasic = JSON.parse(body);
@@ -25,8 +29,12 @@ app.get('/api/items/:id', function (req, res) {
 	  	request('https://api.mercadolibre.com/items/' + req.params.id + '/description', function (error, response, body) {
 			var itemDescription = JSON.parse(body);
 
+			// para obtener la categoría necesito la ID de categoría en el JSON de la primera request
+
 			request('https://api.mercadolibre.com/categories/' + itemBasic.category_id, function (error, response, body) {
 				var itemCategory = JSON.parse(body);
+
+				// fabrico el JSON que le voy a pasar al browser con los datos ya parseados
 
 				var miItem = {};
 
@@ -46,7 +54,7 @@ app.get('/api/items/:id', function (req, res) {
 			    	miItem.item.price.amount = Math.floor(itemBasic.price);
 			    	miItem.item.price.decimals = parseInt(itemBasic.price.toString().split('.')[1]);
 			    }
-			    miItem.item.picture = itemBasic.secure_thumbnail;
+			    miItem.item.picture = itemBasic.pictures[0].secure_url;
 			    miItem.item.condition = itemBasic.condition;
 			    miItem.item.free_shipping = itemBasic.shipping.free_shipping;
 			    miItem.item.sold_quantity = itemBasic.sold_quantity;
@@ -69,8 +77,12 @@ app.get('/api/items/:id', function (req, res) {
 });
 
 
+// llamo a la API con la keyword de búsqueda que extraje en busqueda.js
+
 app.get('/api/items', function (req, res) {
   request('https://api.mercadolibre.com/sites/MLA/search?q=' + req.query.q, function (error, response, body) {
+
+  	// parseo la respuesta y fabrico el JSON que voy a pasarle al browser
 
     var body = JSON.parse(body);
     var misResultados = {};
