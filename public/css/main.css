@@ -12,6 +12,12 @@
   display: inline-block;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
 
+@media screen and (max-width: 1024) and (min-width: 800px) {
+  .searchbar {
+    max-width: 800px; }
+  .main-content {
+    max-width: 800px; } }
+
 * {
   margin: 0;
   padding: 0;

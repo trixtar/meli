@@ -12,6 +12,8 @@ $lightbg: #999;
 $whitegrey: #eee;
 $btnblue: #3483FA;
 
+$max-width: 1020px;
+$max-width-small: 800px;
 $input-h: 38px;
 $normal: 16px;
 $double: $normal * 2;
@@ -29,4 +31,16 @@ $fonts: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	padding: 15px $normal;
 	display: inline-block;
 	font-family: $fonts;
+}
+
+
+
+@media screen and (max-width: 1024) and (min-width: 800px) {
+    .searchbar {
+    	max-width: $max-width-small;
+    }
+
+    .main-content {
+    	max-width: $max-width-small;
+    }
 }

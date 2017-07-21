@@ -26,7 +26,7 @@ html {
 			align-items: center;
 			background-color: $yellow;
 			.searchbar {
-				max-width: 1020px;
+				max-width: $max-width;
 				width: 100%;
 				margin: 0 auto;
 				form {
@@ -74,10 +74,9 @@ html {
 
 
 .main-container {
-	//width: 100vw;
 	padding: 55px 1rem 0;
 	.main-content {
-		max-width: 1020px;
+		max-width: $max-width;
 		width: 100%;
 		margin: 0 auto;
 		.bottom {
