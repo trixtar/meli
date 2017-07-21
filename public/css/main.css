@@ -12,12 +12,6 @@
   display: inline-block;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
 
-@media screen and (max-width: 1100px) {
-  .searchbar {
-    max-width: 800px; }
-  .main-content {
-    max-width: 800px; } }
-
 * {
   margin: 0;
   padding: 0;
@@ -74,6 +68,9 @@ html {
             background-image: url("/public/images/ic_search.png");
             background-repeat: no-repeat;
             background-position: center; }
+      @media screen and (max-width: 1100px) {
+        html body .searchbar-container .searchbar {
+          max-width: 800px; } }
 
 .main-container {
   padding: 55px 1rem 0; }
@@ -83,6 +80,9 @@ html {
     margin: 0 auto; }
     .main-container .main-content .bottom {
       height: 50px; }
+  @media screen and (max-width: 1100px) {
+    .main-container .main-content {
+      max-width: 800px; } }
 
 .breadcrumb {
   margin: 0;
@@ -207,8 +207,14 @@ html {
     color: #eee;
     cursor: pointer; }
 
-@media screen and (max-width: 1100px) {
-  .searchbar {
-    max-width: 800px; }
-  .main-content {
-    max-width: 800px; } }
+/*
+@media screen and (max-width: $breakpoint){
+    .searchbar {
+    	max-width: $max-width-small;
+    }
+
+    .main-content {
+    	max-width: $max-width-small;
+    }
+}
+*/
