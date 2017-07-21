@@ -1,10 +1,3 @@
-@font-face {
-    font-family: 'Nimbus Sans';
-    src: url('/public/fonts/nimbussansl-regular.otf');
-}
-
-
-
 $yellow: #ffe600;
 $darkbg: #333;
 $mediumbg: #666;
@@ -13,8 +6,9 @@ $whitegrey: #eee;
 $btnblue: #3483FA;
 
 $breakpoint: 1100px;
+$breakpoint-sm: 861px;
 $max-width: 1020px;
-$max-width-small: 800px;
+$max-width-small: 860px;
 $input-h: 38px;
 $normal: 16px;
 $double: $normal * 2;

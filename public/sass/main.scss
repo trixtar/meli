@@ -184,6 +184,11 @@ html {
 				vertical-align: -30%;
 			}
 		}
+		@media screen and (max-width: $breakpoint){
+		    .item-place {
+		    	margin-left: 10%;
+		    }
+		}
 	}
 }
 
@@ -229,7 +234,16 @@ html {
 		}
 	}
 }
-
+@media screen and (max-width: $breakpoint) and (min-width: $breakpoint-sm){
+    .listing-left {
+    	width: 75%;
+    }
+}
+@media screen and (max-width: $breakpoint-sm){
+    .listing-left {
+    	width: 100%;
+    }
+}
 
 
 // DATA
@@ -277,15 +291,8 @@ html {
 		cursor: pointer;
 	}
 }
-
-/*
-@media screen and (max-width: $breakpoint){
-    .searchbar {
-    	max-width: $max-width-small;
-    }
-
-    .main-content {
-    	max-width: $max-width-small;
+@media screen and (max-width: $breakpoint-sm){
+    .listing-right {
+    	padding-top: $double;
     }
 }
-*/

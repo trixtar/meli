@@ -1,7 +1,3 @@
-@font-face {
-  font-family: 'Nimbus Sans';
-  src: url("/public/fonts/nimbussansl-regular.otf"); }
-
 .search-results, .listing-container {
   width: 100%;
   border-radius: 4px;
@@ -70,7 +66,7 @@ html {
             background-position: center; }
       @media screen and (max-width: 1100px) {
         html body .searchbar-container .searchbar {
-          max-width: 800px; } }
+          max-width: 860px; } }
 
 .main-container {
   padding: 55px 1rem 0; }
@@ -82,7 +78,7 @@ html {
       height: 50px; }
   @media screen and (max-width: 1100px) {
     .main-container .main-content {
-      max-width: 800px; } }
+      max-width: 860px; } }
 
 .breadcrumb {
   margin: 0;
@@ -143,6 +139,9 @@ html {
       .search-results .result .item-place .place {
         font-size: 1.2rem;
         vertical-align: -30%; }
+    @media screen and (max-width: 1100px) {
+      .search-results .result .item-place {
+        margin-left: 10%; } }
 
 .listing-container {
   padding: 32px; }
@@ -169,6 +168,14 @@ html {
       line-height: 150%;
       font-size: 1.6rem;
       color: #999; }
+
+@media screen and (max-width: 1100px) and (min-width: 861px) {
+  .listing-left {
+    width: 75%; } }
+
+@media screen and (max-width: 861px) {
+  .listing-left {
+    width: 100%; } }
 
 .listing-right {
   flex: 1;
@@ -207,14 +214,6 @@ html {
     color: #eee;
     cursor: pointer; }
 
-/*
-@media screen and (max-width: $breakpoint){
-    .searchbar {
-    	max-width: $max-width-small;
-    }
-
-    .main-content {
-    	max-width: $max-width-small;
-    }
-}
-*/
+@media screen and (max-width: 861px) {
+  .listing-right {
+    padding-top: 32px; } }
