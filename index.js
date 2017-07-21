@@ -34,44 +34,60 @@ app.get('/api/items/:id', function (req, res) {
 			request('https://api.mercadolibre.com/categories/' + itemBasic.category_id, function (error, response, body) {
 				var itemCategory = JSON.parse(body);
 
-				// fabrico el JSON que le voy a pasar al browser con los datos ya parseados
+				// extraigo datos y fabrico el JSON que le voy a pasar al browser con los datos ya parseados
 
-				var miItem = {};
+                //CATEGORIA ITEM
 
-				//AUTOR
-			    miItem.author = {name: 'Rita', lastname: 'Gonzalez Hesaynes'};
-
-			    //ITEM
-			    miItem.item = {};
-			    miItem.item.id = itemBasic.id;
-			    miItem.item.title = itemBasic.title;
-			    miItem.item.price = {};
-			   	miItem.item.price.currency = itemBasic.currency_id;
-			    if (Number.isInteger(itemBasic.price)) {
-			    	miItem.item.price.amount = itemBasic.price;
-			    	miItem.item.price.decimals = 0;
-			    } else {
-			    	miItem.item.price.amount = Math.floor(itemBasic.price);
-			    	miItem.item.price.decimals = parseInt(itemBasic.price.toString().split('.')[1]);
-			    }
-			    miItem.item.picture = itemBasic.pictures[0].secure_url;
-			    miItem.item.condition = itemBasic.condition;
-			    miItem.item.free_shipping = itemBasic.shipping.free_shipping;
-			    miItem.item.sold_quantity = itemBasic.sold_quantity;
-			    if (itemDescription.plain_text == '') {
-			    	miItem.item.description = itemDescription.text;
-			    } else {miItem.item.description = itemDescription.plain_text;}
-
-			    //CATEGORIA ITEM
-
-			    miItem.item.categories = [];
-			    for (var i = 0; i < itemCategory.path_from_root.length; i++) {
-			    	miItem.item.categories.push(itemCategory.path_from_root[i].name);
-			    }
+                categoriasItem = [];
+                for (var i = 0; i < itemCategory.path_from_root.length; i++) {
+                    categoriasItem.push(itemCategory.path_from_root[i].name);
+                }
 				
-				res.send(miItem);
+				// DATOS DEL ITEM
+				// primero proceso los datos del precio para extraer el valor entero y los decimales
+				var precio = {};
+				precio.currency = itemBasic.currency_id;
+			    if (Number.isInteger(itemBasic.price)) {
+			    	precio.amount = itemBasic.price;
+			    	precio.decimals = 0;
+			    } else {
+			    	precio.amount = Math.floor(itemBasic.price);
+			    	precio.decimals = parseInt(itemBasic.price.toString().split('.')[1]);
+			    }
 
-			});
+			    /* proceso la descripción para que si no tiene datos en plain text me devuelva HTML
+			    (al html lo uso como texto sin formato porque las especificaciones de diseño
+			    no parecían contemplar el insertar descripciones en formato HTML*/
+			    var descripcion = '';
+			    if (itemDescription.plain_text == '') {
+			    	descripcion = itemDescription.text;
+			    } else {descripcion = itemDescription.plain_text;}
+
+			    //JSON FINAL
+				var itemData = {
+			    	author: {
+			    		name: 'Rita',
+			    		lastname: 'Gonzalez Hesaynes'
+			    	},
+
+			    	item: {
+			    		id: itemBasic.id,
+			    		title: itemBasic.title,
+			    		price: precio,
+			    		picture: itemBasic.pictures[0].secure_url,
+			    		condition: itemBasic.condition,
+			    		free_shipping: itemBasic.shipping.free_shipping,
+			    		sold_quantity: itemBasic.sold_quantity,
+			    		categories: categoriasItem,
+			    		description: descripcion
+			    		}
+			    	};
+
+
+			    	
+			    	res.send(itemData);
+		    });
+
 		});
 	});
 });
@@ -85,26 +101,21 @@ app.get('/api/items', function (req, res) {
   	// parseo la respuesta y fabrico el JSON que voy a pasarle al browser
 
     var body = JSON.parse(body);
-    var misResultados = {};
 
-    //AUTOR
-    misResultados.author = {name: 'Rita', lastname: 'Gonzalez Hesaynes'};
-
-    //CATEGORIAS
-    misResultados.categories = [];
+    // CATEGORIAS
+    categorias = [];
 
     if (body.filters.length == 0) {
-    	misResultados.categories.push(body.available_filters[0].values[0].name);
+    	categorias.push(body.available_filters[0].values[0].name);
     } else {
     	var cat = body.filters[0].values[0].path_from_root;
     	for (var i = 0; i < cat.length; i++) {
-    		misResultados.categories.push(cat[i].name);
+    		categorias.push(cat[i].name);
     	}
     }
 
-    //ITEMS
-    misResultados.items = [];
-
+    // ITEMS
+    itemsBusqueda = [];
     for (var j = 0; j < body.results.length; j++) {
     	var temp = {};
 
@@ -124,10 +135,23 @@ app.get('/api/items', function (req, res) {
     	temp.free_shipping = body.results[j].shipping.free_shipping;
     	temp.location = body.results[j].address.state_name;  //Agrego key para poder insertar la provincia en los resultados
     	
-    	misResultados.items.push(temp);
+    	itemsBusqueda.push(temp);
     };
 
-    res.send(misResultados);
+    // JSON FINAL
+
+    var resultadosBusqueda = {
+    	author: {
+    		name: 'Rita',
+    		lastname: 'Gonzalez Hesaynes'
+    	},
+
+    	categories: categorias,
+
+    	items: itemsBusqueda
+    }
+
+    res.send(resultadosBusqueda);
   });
 });
 

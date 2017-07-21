@@ -8,20 +8,21 @@ $(document).ready(function () {
   // Llamo a la API
 
   $.get("/api/items/" + id, function (res) {
+    console.log(res);
     
     // BREADCRUMB DE CATEGORIAS
 
-    var categories = '';
+    var categoriasItem = [];
 
     for (var i = 0; i < res.item.categories.length; i++){
       if (i == res.item.categories.length - 1) {
-        categories +='<li>' + res.item.categories[i] + '</li>';
+        categoriasItem +='<li>' + res.item.categories[i] + '</li>';
       } else {
-        categories +='<li>' + res.item.categories[i] + '</li><i>></i>';
+        categoriasItem +='<li>' + res.item.categories[i] + '</li><i>></i>';
       }
     }
     
-    $('#breadcrumb-path').html(categories);
+    $('#breadcrumb-path').html(categoriasItem);
 
     // MAIN SECTION: DATOS DEL ITEM
 
