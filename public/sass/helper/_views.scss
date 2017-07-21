@@ -236,7 +236,7 @@ html {
 }
 @media screen and (max-width: $breakpoint) and (min-width: $breakpoint-sm){
     .listing-left {
-    	width: 60%;
+    	width: 70%;
     	margin-right: 0;
     	padding-right: $normal;
     }
@@ -280,6 +280,15 @@ html {
 			background-image: url('/public/images/ic_shipping_2x.png');
 			background-repeat: no-repeat;
 		}
+	}
+	@media screen and (max-width: $breakpoint) and (min-width: $breakpoint-sm){
+	    .listing-price {
+	    	font-size: 3.6rem;
+	    	sup {
+	    		font-size: 2rem;
+	    		margin-bottom: 1.2rem;
+	    	}
+	    }
 	}
 	.btn-buy {
 		margin-top: $double;
