@@ -24,31 +24,46 @@ app.get('/api/items/:id', function (req, res) {
 
 	  	request('https://api.mercadolibre.com/items/' + req.params.id + '/description', function (error, response, body) {
 			var itemDescription = JSON.parse(body);
-			var miItem = {};
 
-			//AUTOR
-		    miItem.author = {name: 'Rita', lastname: 'Gonzalez Hesaynes'};
+			request('https://api.mercadolibre.com/categories/' + itemBasic.category_id, function (error, response, body) {
+				var itemCategory = JSON.parse(body);
 
-		    //ITEM
-		    miItem.item = {};
-		    miItem.item.id = itemBasic.id;
-		    miItem.item.title = itemBasic.title;
-		    miItem.item.price = {};
-		   	miItem.item.price.currency = itemBasic.currency_id;
-		    if (Number.isInteger(itemBasic.price)) {
-		    	miItem.item.price.amount = itemBasic.price;
-		    	miItem.item.price.decimals = 0;
-		    } else {
-		    	miItem.item.price.amount = Math.floor(itemBasic.price);
-		    	miItem.item.price.decimals = parseInt(itemBasic.price.toString().split('.')[1]);
-		    }
-		    miItem.item.picture = itemBasic.secure_thumbnail;
-		    miItem.item.condition = itemBasic.condition;
-		    miItem.item.free_shipping = itemBasic.shipping.free_shipping;
-		    miItem.item.sold_quantity = itemBasic.sold_quantity;
-		    miItem.item.description = itemDescription.plain_text; //LUEGO VER CAMBIAR A itemDescription.text;
-			
-			res.send(miItem);
+				var miItem = {};
+
+				//AUTOR
+			    miItem.author = {name: 'Rita', lastname: 'Gonzalez Hesaynes'};
+
+			    //ITEM
+			    miItem.item = {};
+			    miItem.item.id = itemBasic.id;
+			    miItem.item.title = itemBasic.title;
+			    miItem.item.price = {};
+			   	miItem.item.price.currency = itemBasic.currency_id;
+			    if (Number.isInteger(itemBasic.price)) {
+			    	miItem.item.price.amount = itemBasic.price;
+			    	miItem.item.price.decimals = 0;
+			    } else {
+			    	miItem.item.price.amount = Math.floor(itemBasic.price);
+			    	miItem.item.price.decimals = parseInt(itemBasic.price.toString().split('.')[1]);
+			    }
+			    miItem.item.picture = itemBasic.secure_thumbnail;
+			    miItem.item.condition = itemBasic.condition;
+			    miItem.item.free_shipping = itemBasic.shipping.free_shipping;
+			    miItem.item.sold_quantity = itemBasic.sold_quantity;
+			    if (itemDescription.plain_text == '') {
+			    	miItem.item.description = itemDescription.text;
+			    } else {miItem.item.description = itemDescription.plain_text;}
+
+			    //CATEGORIA ITEM
+
+			    miItem.item.categories = [];
+			    for (var i = 0; i < itemCategory.path_from_root.length; i++) {
+			    	miItem.item.categories.push(itemCategory.path_from_root[i].name);
+			    }
+				
+				res.send(miItem);
+
+			});
 		});
 	});
 });

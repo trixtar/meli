@@ -1,4 +1,3 @@
-@import "helper/mixins";
 @import "helper/others";
 
 
@@ -79,18 +78,21 @@ html {
 		max-width: 1020px;
 		width: 100%;
 		margin: 0 auto;
+		.bottom {
+			
+		}
 	}
 }
 
 // SEARCH BREADCRUMB
 
-.search-breadcrumb {
+.breadcrumb {
 	margin: 0;
 	padding: $normal 0;
 	font-size: 1.4rem;
 	font-family: $fonts;
 	color: $lightbg;
-	.search-path {
+	.breadcrumb-path {
 		i {
 			padding: 0 0.8rem;
 		}
@@ -109,10 +111,8 @@ html {
 // SEARCH RESULTS
 
 .search-results {
-	width: 100%;
+	@extend %main-section;
 	padding: 0 $normal;
-	border-radius: 4px;
-	background-color: white;
 	.result {
 		width: 100%;
 		padding: $normal 0;
@@ -121,7 +121,7 @@ html {
 		&:last-child {
 			border-bottom: none;
 		}
-		figure {
+		.item-image {
 			display: inline-block;
 			height: $thumb;
 			a {
@@ -177,6 +177,95 @@ html {
 }
 
 
-.resultado {
-	border: 1px solid black;
+
+
+
+// DETALLE
+
+.listing-container {
+	@extend %main-section;
+	padding: $double;
+	.listing-details {
+		width: 100%;
+		display: flex;
+		flex-wrap: wrap;
+		font-family: $fonts;
+		color: $darkbg;
+	}
 }
+
+// IMAGEN Y DESCRIPCION
+
+.listing-left {
+	max-width: 680px;
+	width: 80%;
+	.listing-image {
+		width: 100%;
+		.listing-img {
+			width: 100%;
+		}
+	}
+	.listing-description {
+		width: 100%;
+		padding-top: $double;
+		.description-title {
+			font-size: 2.8rem;
+		}
+		.description-full {
+			margin-top: $double;
+			line-height: 150%;
+			font-size: 1.6rem;
+			color: $lightbg;
+		}
+	}
+}
+
+
+
+// DATA
+
+.listing-right {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	.condition-sold {
+		font-size: 1.4rem;
+	}
+	.listing-title {
+		margin-top: $normal;
+		font-size: 2.4rem;
+		font-weight: bold;
+	}
+	.listing-price {
+		margin-top: $double;
+		font-size: 4.6rem;
+		display: flex;
+		align-items: center;
+		sup {
+			padding: 0.2rem;
+			font-size: 2.6rem;
+			margin-bottom: 1.4rem;
+		}
+		.free-shipping-big {
+			width: 36px;
+			height: 36px;
+			margin-left: 1rem;
+			display: inline-block;
+			background-image: url('/public/images/ic_shipping_2x.png');
+			background-repeat: no-repeat;
+		}
+	}
+	.btn-buy {
+		margin-top: $double;
+		padding: 1rem 0;
+		display: block;
+		border: none;
+		border-radius: 2px;
+		background-color: $btnblue;
+		font-size: 1.6rem;
+		color: $whitegrey;
+		cursor: pointer;
+	}
+}
+
+

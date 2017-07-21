@@ -4,6 +4,8 @@
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">	
 	<title>Mercado Libre</title>
+	<link rel="icon" href="/public/images/favicon.png" type="image/png" />
+	<link rel="shortcut icon" href="/public/favicon.ico" type="image/x-icon" />
 	<link rel="stylesheet" type="text/css" href="/public/css/main.css">
 </head>
 <body>
@@ -20,9 +22,30 @@
 		</nav>
 	</header>
 
-	<main style="padding-top: 55px;">
-		<div id="ml-response">
-			
+<!-- MAIN: DETALLE ITEM -->
+
+	<main class="main-container">
+		<div class="main-content">
+			<nav class="breadcrumb">
+				<ul id="breadcrumb-path" class="breadcrumb-path"></ul>
+			</nav>
+			<section id="listing-container" class="listing-container">
+				<article class="listing-details">
+					<div class="listing-left">
+						<figure class="listing-image">
+							<img id="listing-img" class="listing-img" src="" alt="" />
+						</figure>
+						<div id="listing-description" class="listing-description">
+							<span class="description-title">Descripción del producto</span>
+							<div id="description-full" class="description-full"></div>
+						</div>
+					</div>
+					
+					<div id="listing-right" class="listing-right"></div>
+					
+				</article>
+			</section>
+			<div class="bottom"></div>
 		</div>
 	</main>
 

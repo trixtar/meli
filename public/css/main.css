@@ -2,6 +2,11 @@
   font-family: 'Nimbus Sans';
   src: url("/public/fonts/nimbussansl-regular.otf"); }
 
+.search-results, .listing-container {
+  width: 100%;
+  border-radius: 4px;
+  background-color: white; }
+
 .search-results .result .item-basicdata, .search-results .result .item-place {
   padding: 15px 16px;
   display: inline-block;
@@ -69,25 +74,22 @@ html {
     width: 100%;
     margin: 0 auto; }
 
-.search-breadcrumb {
+.breadcrumb {
   margin: 0;
   padding: 16px 0;
   font-size: 1.4rem;
   font-family: Helvetica, Arial, sans-serif;
   color: #999; }
-  .search-breadcrumb .search-path i {
+  .breadcrumb .breadcrumb-path i {
     padding: 0 0.8rem; }
-  .search-breadcrumb .search-path li {
+  .breadcrumb .breadcrumb-path li {
     display: inline;
     list-style-type: none; }
-    .search-breadcrumb .search-path li:last-child {
+    .breadcrumb .breadcrumb-path li:last-child {
       font-weight: bold; }
 
 .search-results {
-  width: 100%;
-  padding: 0 16px;
-  border-radius: 4px;
-  background-color: white; }
+  padding: 0 16px; }
   .search-results .result {
     width: 100%;
     padding: 16px 0;
@@ -95,12 +97,12 @@ html {
     border-bottom: #eee solid 1px; }
     .search-results .result:last-child {
       border-bottom: none; }
-    .search-results .result figure {
+    .search-results .result .item-image {
       display: inline-block;
       height: 180px; }
-      .search-results .result figure a {
+      .search-results .result .item-image a {
         height: 100%; }
-        .search-results .result figure a .item-thumb {
+        .search-results .result .item-image a .item-thumb {
           width: 180px;
           height: 180px;
           border-radius: 4px; }
@@ -132,5 +134,66 @@ html {
         font-size: 1.2rem;
         vertical-align: -30%; }
 
-.resultado {
-  border: 1px solid black; }
+.listing-container {
+  padding: 32px; }
+  .listing-container .listing-details {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    font-family: Helvetica, Arial, sans-serif;
+    color: #333; }
+
+.listing-left {
+  max-width: 680px;
+  width: 80%; }
+  .listing-left .listing-image {
+    width: 100%; }
+    .listing-left .listing-image .listing-img {
+      width: 100%; }
+  .listing-left .listing-description {
+    width: 100%;
+    padding-top: 32px; }
+    .listing-left .listing-description .description-title {
+      font-size: 2.8rem; }
+    .listing-left .listing-description .description-full {
+      margin-top: 32px;
+      line-height: 150%;
+      font-size: 1.6rem;
+      color: #999; }
+
+.listing-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column; }
+  .listing-right .condition-sold {
+    font-size: 1.4rem; }
+  .listing-right .listing-title {
+    margin-top: 16px;
+    font-size: 2.4rem;
+    font-weight: bold; }
+  .listing-right .listing-price {
+    margin-top: 32px;
+    font-size: 4.6rem;
+    display: flex;
+    align-items: center; }
+    .listing-right .listing-price sup {
+      padding: 0.2rem;
+      font-size: 2.6rem;
+      margin-bottom: 1.4rem; }
+    .listing-right .listing-price .free-shipping-big {
+      width: 36px;
+      height: 36px;
+      margin-left: 1rem;
+      display: inline-block;
+      background-image: url("/public/images/ic_shipping_2x.png");
+      background-repeat: no-repeat; }
+  .listing-right .btn-buy {
+    margin-top: 32px;
+    padding: 1rem 0;
+    display: block;
+    border: none;
+    border-radius: 2px;
+    background-color: #3483FA;
+    font-size: 1.6rem;
+    color: #eee;
+    cursor: pointer; }
